@@ -7,10 +7,8 @@ on:
 jobs:
   pruebas-integracion:
     runs-on: ubuntu-latest
-
     container:
       image: debian:13
-
     services:
       mariadb:
         image: mariadb:11
@@ -19,13 +17,11 @@ jobs:
           MARIADB_USER: app_incidencias
           MARIADB_PASSWORD: clave_ci
           MARIADB_ROOT_PASSWORD: root_ci
-
     env:
       DB_HOST: mariadb
       DB_NAME: incidencias
       DB_USER: app_incidencias
       DB_PASS: clave_ci
-
     steps:
       - name: Preparar Debian
         run: |

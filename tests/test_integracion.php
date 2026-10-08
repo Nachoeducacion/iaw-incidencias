@@ -11,7 +11,6 @@ try {
         $pass,
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
     );
-
     echo "1. Conexión PDO correcta\n";
 
     $inicial = (int)$pdo->query("SELECT COUNT(*) FROM incidencias")->fetchColumn();
@@ -38,20 +37,16 @@ try {
     }
 
     $fila = $pdo->query(
-        "SELECT usuario,equipo,descripcion
-         FROM incidencias ORDER BY id DESC LIMIT 1"
+        "SELECT usuario,equipo,descripcion FROM incidencias ORDER BY id DESC LIMIT 1"
     )->fetch(PDO::FETCH_ASSOC);
-
     if (!$fila || $fila['usuario'] !== 'CI' ||
         $fila['equipo'] !== 'GitHub Actions' ||
         $fila['descripcion'] !== 'Prueba automática CI') {
         throw new RuntimeException("El SELECT no devuelve los valores esperados");
     }
-
     echo "5. SELECT y validación correctos\n";
     echo "RESULTADO: PRUEBA DE INTEGRACIÓN SUPERADA\n";
     exit(0);
-
 } catch (Throwable $e) {
     fwrite(STDERR, "ERROR DE INTEGRACIÓN: ".$e->getMessage().PHP_EOL);
     exit(1);
